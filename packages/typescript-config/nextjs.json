@@ -2,11 +2,20 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./base.json",
   "compilerOptions": {
-    "plugins": [{ "name": "next" }],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "allowJs": true,
-    "jsx": "preserve",
-    "noEmit": true
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "sourceMap": true,
+    "strictBindCallApply": false,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "target": "ES2023"
   }
 }
