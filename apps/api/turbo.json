@@ -4,6 +4,10 @@
     "dev": {
       "dependsOn": ["start:dev"]
     },
-    "start:dev": {}
+    "start:dev": {},
+    "test": {
+      "dependsOn": ["test:e2e"]
+    },
+    "test:e2e": {}
   }
 }
