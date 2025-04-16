@@ -1,32 +1,54 @@
 import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
-import turboPlugin from "eslint-plugin-turbo";
-import tseslint from "typescript-eslint";
-import onlyWarn from "eslint-plugin-only-warn";
+import eslintPluginImport from "eslint-plugin-import";
+import eslintPluginOnlyWarn from "eslint-plugin-only-warn";
+import eslintPluginTurbo from "eslint-plugin-turbo";
+import typescriptEslint from "typescript-eslint";
 
-/**
- * A shared ESLint configuration for the repository.
- *
- * @type {import("eslint").Linter.Config[]}
- * */
 export const config = [
-  js.configs.recommended,
-  eslintConfigPrettier,
-  ...tseslint.configs.recommended,
   {
-    plugins: {
-      turbo: turboPlugin,
-    },
+    plugins: { js },
     rules: {
-      "turbo/no-undeclared-env-vars": "warn",
+      ...js.configs.recommended.rules,
+      "no-fallthrough": "off",
+      "no-unused-vars": "warn",
+    },
+  },
+  ...typescriptEslint.configs.recommended,
+  {
+    plugins: { import: eslintPluginImport },
+    rules: {
+      ...eslintPluginImport.flatConfigs.rules,
+      "import/extensions": "off",
+      "import/no-unresolved": "off",
+      "import/order": [
+        "error",
+        {
+          alphabetize: { caseInsensitive: true, order: "asc" },
+          groups: [
+            "builtin",
+            "external",
+            "index",
+            "internal",
+            "parent",
+            "sibling",
+          ],
+          "newlines-between": "always",
+        },
+      ],
+      "import/prefer-default-export": "off",
     },
   },
   {
-    plugins: {
-      onlyWarn,
+    rules: {
+      "no-console": "error",
+      "sort-keys": ["error", "asc"],
     },
   },
+  eslintConfigPrettier,
   {
-    ignores: ["dist/**"],
+    plugins: { turbo: eslintPluginTurbo },
+    rules: { "turbo/no-undeclared-env-vars": "warn" },
   },
+  { plugins: { eslintPluginOnlyWarn } },
 ];
